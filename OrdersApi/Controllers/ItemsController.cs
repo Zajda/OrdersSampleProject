@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using ApiSampleProject.Models;
+using ApiSampleProject.Models.DTOs;
 using ApiSampleProject.Services.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -27,9 +28,13 @@ public class ItemsController : Controller
     /// </summary>
     /// <returns>A collection of all items.</returns>
     [HttpGet]
-    public Task<IActionResult> GetAllItems()
+    public async Task<IActionResult> GetAllItems()
     {
-        return Task.FromResult<IActionResult>(Ok(_itemsService.GetAllAsync()));
+        var data = await _itemsService.GetAllAsync();
+        
+        var mapped = _mapper.Map<List<ItemDto>>(data);
+
+        return Ok(mapped);
     }
 
     /// <summary>
@@ -38,9 +43,13 @@ public class ItemsController : Controller
     /// <param name="id">Identification of a specific item.</param>
     /// <returns>A single item data.</returns>
     [HttpGet("{id}")]
-    public Task<IActionResult> GetItemById(int id)
+    public async Task<IActionResult> GetItemById(int id)
     {
-        return Task.FromResult<IActionResult>(Ok(_itemsService.GetItemByIdAsync(id)));
+        var data = await _itemsService.GetItemByIdAsync(id);
+        
+        var mapped = _mapper.Map<ItemDto>(data);
+
+        return Ok(mapped);
     }
     
     /// <summary>
@@ -49,9 +58,13 @@ public class ItemsController : Controller
     /// <param name="item">Newly created item object.</param>
     /// <returns>Returns newly created item obejct.</returns>
     [HttpPut("create")]
-    public Task<IActionResult> CreateItem(Item item)
+    public async Task<IActionResult> CreateItem(Item item)
     {
-        return Task.FromResult<IActionResult>(Ok(_itemsService.CreateAsync(item)));
+        var data = await _itemsService.CreateAsync(item);
+        
+        var mapped = _mapper.Map<ItemDto>(data);
+
+        return Ok(mapped);
     }
     
     /// <summary>
@@ -60,9 +73,13 @@ public class ItemsController : Controller
     /// <param name="item">Updated item data.</param>
     /// <returns>Returns updated item object.</returns>
     [HttpPut("update")]
-    public Task<IActionResult> UpdateItem(Item item)
+    public async Task<IActionResult> UpdateItem(Item item)
     {
-        return Task.FromResult<IActionResult>(Ok(_itemsService.UpdateAsync(item)));
+        var data = await _itemsService.UpdateAsync(item);
+        
+        var mapped = _mapper.Map<ItemDto>(data);
+
+        return Ok(mapped);
     }
 
     /// <summary>
@@ -71,8 +88,12 @@ public class ItemsController : Controller
     /// <param name="id">Identification of a specific item.</param>
     /// <returns>Returns a confirmation of deletion.</returns>
     [HttpDelete("delete")]
-    public Task<IActionResult> DeleteItem(int id)
+    public async Task<IActionResult> DeleteItem(int id)
     {
-        return Task.FromResult<IActionResult>(Ok(_itemsService.DeleteAsync(id)));
+        var data = await _itemsService.DeleteAsync(id);
+        
+        var mapped = _mapper.Map<ItemDto>(data);
+
+        return Ok(mapped);
     }
 }

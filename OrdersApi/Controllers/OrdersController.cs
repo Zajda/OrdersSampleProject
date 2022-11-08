@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using ApiSampleProject.Models;
+using ApiSampleProject.Models.DTOs;
 using ApiSampleProject.Services.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -27,9 +28,13 @@ public class OrdersController : ControllerBase
     /// </summary>
     /// <returns>Returns a collection of all orders.</returns>
     [HttpGet]
-    public async Task<IQueryable<Order>> GetAllOrders()
+    public async Task<IActionResult>  GetAllOrders()
     {
-        return await _ordersService.GetAllAsync();
+        var data = await _ordersService.GetAllAsync();
+        
+        var mapped = _mapper.Map<List<OrderDto>>(data);
+
+        return Ok(mapped);
     }
 
     /// <summary>
@@ -38,9 +43,13 @@ public class OrdersController : ControllerBase
     /// <param name="id">Identification of the specific order.</param>
     /// <returns>Returns data about a specific order.</returns>
     [HttpGet("{id}")]
-    public Task<IActionResult> GetOrderById(int id)
+    public async Task<IActionResult> GetOrderById(int id)
     {
-        return Task.FromResult<IActionResult>(Ok(_ordersService.GetOrderByIdAsync(id)));
+        var data = await _ordersService.GetOrderByIdAsync(id);
+        
+        var mapped = _mapper.Map<ItemDto>(data);
+
+        return Ok(mapped);
     }
     
     /// <summary>
@@ -49,9 +58,13 @@ public class OrdersController : ControllerBase
     /// <param name="order">Newly created order entity.</param>
     /// <returns>Returns the newly created entity.</returns>
     [HttpPut("create")]
-    public Task<IActionResult> CreateOrder(Order order)
+    public async Task<IActionResult> CreateOrder(Order order)
     {
-        return Task.FromResult<IActionResult>(Ok(_ordersService.CreateAsync(order)));
+        var data = await _ordersService.CreateAsync(order);
+        
+        var mapped = _mapper.Map<ItemDto>(data);
+
+        return Ok(mapped);
     }
     
     /// <summary>
@@ -60,9 +73,13 @@ public class OrdersController : ControllerBase
     /// <param name="order">Updated order entity.</param>
     /// <returns>Returns the updated entity.</returns>
     [HttpPut("update")]
-    public Task<IActionResult> UpdateOrder(Order order)
+    public async Task<IActionResult> UpdateOrder(Order order)
     {
-        return Task.FromResult<IActionResult>(Ok(_ordersService.UpdateAsync(order)));
+        var data = await _ordersService.UpdateAsync(order);
+        
+        var mapped = _mapper.Map<ItemDto>(data);
+
+        return Ok(mapped);
     }
 
     /// <summary>
@@ -71,8 +88,12 @@ public class OrdersController : ControllerBase
     /// <param name="id">Identification of a specific order.</param>
     /// <returns>Returns a confirmation of a deletion.</returns>
     [HttpDelete("delete")]
-    public Task<IActionResult> DeleteOrder(int id)
+    public async Task<IActionResult> DeleteOrder(int id)
     {
-        return Task.FromResult<IActionResult>(Ok(_ordersService.DeleteAsync(id)));
+        var data = await _ordersService.DeleteAsync(id);
+        
+        var mapped = _mapper.Map<ItemDto>(data);
+
+        return Ok(mapped);
     }
 }

@@ -32,11 +32,9 @@ public class CustomersController : Controller
     {
         var data = await _customersService.GetAllAsync();
         
-        //var mapped = _mapper.Map<CustomerDto>(data);
+        var mapped = _mapper.Map<List<CustomerDto>>(data);
 
-        //return Ok(mapped);
-
-        return Ok(data);
+        return Ok(mapped);
     }
 
     /// <summary>
@@ -45,9 +43,13 @@ public class CustomersController : Controller
     /// <param name="id">Identification of the customer.</param>
     /// <returns>Data about a single customer.</returns>
     [HttpGet("{id}")]
-    public Task<IActionResult> GetCustomerById(int id)
+    public async Task<IActionResult> GetCustomerById(int id)
     {
-        return Task.FromResult<IActionResult>(Ok(_customersService.GetCustomerByIdAsync(id)));
+        var data = await _customersService.GetCustomerByIdAsync(id);
+        
+        var mapped = _mapper.Map<CustomerDto>(data);
+        
+        return Ok(mapped);
     }
 
     /// <summary>
@@ -56,9 +58,13 @@ public class CustomersController : Controller
     /// <param name="customer">Customer object to be created.</param>
     /// <returns>Newly created customer data.</returns>
     [HttpPut("create")]
-    public Task<IActionResult> CreateCustomer(Customer customer)
+    public async Task<IActionResult> CreateCustomer(Customer customer)
     {
-        return Task.FromResult<IActionResult>(Ok(_customersService.CreateAsync(customer)));
+        var data = await _customersService.CreateAsync(customer);
+        
+        var mapped = _mapper.Map<CustomerDto>(data);
+        
+        return Ok(mapped);
     }
     
     /// <summary>
@@ -67,9 +73,13 @@ public class CustomersController : Controller
     /// <param name="customer">Updated customer entity.</param>
     /// <returns>Updated customer data.</returns>
     [HttpPut("update")]
-    public Task<IActionResult> UpdateCustomer(Customer customer)
+    public async Task<IActionResult> UpdateCustomer(Customer customer)
     {
-        return Task.FromResult<IActionResult>(Ok(_customersService.UpdateAsync(customer)));
+        var data = await _customersService.UpdateAsync(customer);
+        
+        var mapped = _mapper.Map<CustomerDto>(data);
+        
+        return Ok(mapped);
     }
 
     /// <summary>
@@ -78,8 +88,12 @@ public class CustomersController : Controller
     /// <param name="id">Identification of a customer.</param>
     /// <returns>Returns confirmation of deleting.</returns>
     [HttpDelete("delete")]
-    public Task<IActionResult> DeleteCustomer(int id)
+    public async Task<IActionResult> DeleteCustomer(int id)
     {
-        return Task.FromResult<IActionResult>(Ok(_customersService.DeleteAsync(id)));
+        var data = await _customersService.DeleteAsync(id);
+        
+        var mapped = _mapper.Map<CustomerDto>(data);
+
+        return Ok(mapped);
     }
 }

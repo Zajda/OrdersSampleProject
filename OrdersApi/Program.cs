@@ -22,8 +22,7 @@ builder.Services.AddScoped<IItemsService, ItemsService>();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
 builder.Services.AddScoped<ICustomersService, CustomersService>();
 
-builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
-builder.Services.AddControllersWithViews();
+builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
