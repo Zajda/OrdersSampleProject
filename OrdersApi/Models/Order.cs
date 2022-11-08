@@ -17,4 +17,6 @@ public class Order
     public DateTime? DeliveryTimeStamp { get; set; }
 
     public bool IsComplete => DeliveryTimeStamp == null;
+    
+    public bool IsDeleted { get; set; }
 }

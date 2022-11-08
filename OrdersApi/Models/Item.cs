@@ -13,4 +13,6 @@ public class Item
     public double Price { get; set; }
 
     public int Count { get; set; }
+    
+    public bool IsDeleted { get; set; }
 }

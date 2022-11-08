@@ -9,13 +9,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
-builder.Services.AddScoped<IItemsService, ItemsService>();
-builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
-builder.Services.AddScoped<IOrdersService, OrdersService>();
-builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
-builder.Services.AddScoped<ICustomersService, CustomersService>();
+
+// Register repositories and DbContext
 builder.Services.AddDbContext<OrdersSampleDbContext>();
+builder.Services.AddScoped<IItemsRepository, ItemsRepository>();
+builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
+builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
+
+// Register services
+builder.Services.AddScoped<IItemsService, ItemsService>();
+builder.Services.AddScoped<IOrdersService, OrdersService>();
+builder.Services.AddScoped<ICustomersService, CustomersService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

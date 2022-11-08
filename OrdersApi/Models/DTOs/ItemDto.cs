@@ -1,8 +1,8 @@
 using Microsoft.Build.Framework;
 
-namespace ApiSampleProject.Models;
+namespace ApiSampleProject.Models.DTOs;
 
-public class Item
+public class ItemDto
 {
     [Required] public int Id { get; set; }
 
@@ -13,6 +13,4 @@ public class Item
     public double Price { get; set; }
 
     public int Count { get; set; }
-    
-    public bool IsDeleted { get; set; }
 }

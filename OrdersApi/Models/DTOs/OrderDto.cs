@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ApiSampleProject.Models;
+namespace ApiSampleProject.Models.DTOs;
 
-public class Order
+public class OrderDto
 {
     [Required] public int Id { get; set; }
 
@@ -17,6 +17,4 @@ public class Order
     public DateTime? DeliveryTimeStamp { get; set; }
 
     public bool IsComplete => DeliveryTimeStamp == null;
-    
-    public bool IsDeleted { get; set; }
 }
