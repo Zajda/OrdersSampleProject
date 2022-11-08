@@ -1,4 +1,5 @@
 using ApiSampleProject.DbContexts;
+using ApiSampleProject.Extensions;
 using ApiSampleProject.Repositories;
 using ApiSampleProject.Repositories.Interfaces;
 using ApiSampleProject.Services;
@@ -20,6 +21,9 @@ builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
 builder.Services.AddScoped<IItemsService, ItemsService>();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
 builder.Services.AddScoped<ICustomersService, CustomersService>();
+
+builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+builder.Services.AddControllersWithViews();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

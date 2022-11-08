@@ -27,9 +27,14 @@ public class CustomersService : ICustomersService
     public Task<Customer> DeleteAsync(int id)
     {
         var customer = _customersRepo.GetCustomerByIdAsync(id).Result;
+        if (customer == null)
+        {
+            throw new ArgumentNullException($"Customer with {id} does not exist!");
+        }
 
-        if (customer != null) return (Task<Customer>) _customersRepo.DeleteAsync(customer);
-        return null!;
+        // Soft delete
+        customer.IsDeleted = true;
+        return UpdateAsync(customer);
     }
 
     public Task<Customer> UpdateAsync(Customer entity)

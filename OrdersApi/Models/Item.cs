@@ -1,8 +1,9 @@
+using ApiSampleProject.Models.Interfaces;
 using Microsoft.Build.Framework;
 
 namespace ApiSampleProject.Models;
 
-public class Item
+public class Item : IBaseModel
 {
     [Required] public int Id { get; set; }
 

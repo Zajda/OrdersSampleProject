@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using ApiSampleProject.Models;
 using ApiSampleProject.Services.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiSampleProject.Controllers;
@@ -13,10 +14,12 @@ namespace ApiSampleProject.Controllers;
 public class OrdersController : ControllerBase
 {
     [NotNull] private readonly IOrdersService _ordersService;
+    [NotNull] private readonly IMapper _mapper;
 
-    public OrdersController([NotNull] IOrdersService ordersService)
+    public OrdersController([NotNull] IOrdersService ordersService, [NotNull] IMapper mapper)
     {
         _ordersService = ordersService ?? throw new ArgumentNullException(nameof(ordersService));
+        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
     /// <summary>

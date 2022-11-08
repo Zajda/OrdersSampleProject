@@ -36,7 +36,8 @@ public class OrdersService : IOrdersService
 
         if (order == null) throw new ArgumentNullException($"Order with {id} does not exist!");
 
-        return (Task<Order>) _ordersRepo.DeleteAsync(order);
+        order.IsDeleted = true;
+        return UpdateAsync(order);
     }
 
     public Task<Order> UpdateAsync(Order entity)

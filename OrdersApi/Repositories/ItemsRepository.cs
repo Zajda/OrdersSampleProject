@@ -14,7 +14,7 @@ public class ItemsRepository : RepositoryBase<Item>, IItemsRepository
         _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }
 
-    public ValueTask<Item> GetItemByIdAsync(int id)
+    public ValueTask<Item?> GetItemByIdAsync(int id)
     {
         return _dbContext.FindAsync<Item>(id);
     }

@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using ApiSampleProject.Models.Interfaces;
 
 namespace ApiSampleProject.Models;
 
-public class Order
+public class Order : IBaseModel
 {
     [Required] public int Id { get; set; }
 

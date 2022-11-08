@@ -3,6 +3,7 @@ using System;
 using ApiSampleProject.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiSampleProject.Migrations
 {
     [DbContext(typeof(OrdersSampleDbContext))]
-    partial class OrdersSampleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221108145042_AddIsDeletedParams")]
+    partial class AddIsDeletedParams
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.10");

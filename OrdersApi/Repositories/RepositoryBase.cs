@@ -1,12 +1,13 @@
 using System.Diagnostics.CodeAnalysis;
 using ApiSampleProject.DbContexts;
+using ApiSampleProject.Models.Interfaces;
 using ApiSampleProject.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiSampleProject.Repositories;
 
 public abstract class RepositoryBase<T> : IRepositoryBase<T>
-    where T : class
+    where T : class, IBaseModel
 {
     [NotNull] private readonly OrdersSampleDbContext _dbContext;
 
@@ -17,7 +18,9 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T>
 
     public IQueryable<T> GetAllAsync()
     {
-        return _dbContext.Set<T>().AsNoTracking();
+        return _dbContext.Set<T>()
+            .AsNoTracking()
+            .Where(x => x.IsDeleted == false);
     }
 
     public Task CreateAsync(T entity)

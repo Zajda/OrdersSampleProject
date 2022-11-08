@@ -1,6 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using ApiSampleProject.Models;
+using ApiSampleProject.Models.DTOs;
 using ApiSampleProject.Services.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiSampleProject.Controllers;
@@ -13,10 +15,12 @@ namespace ApiSampleProject.Controllers;
 public class CustomersController : Controller
 {
     [NotNull] private readonly ICustomersService _customersService;
+    [NotNull] private readonly IMapper _mapper;
 
-    public CustomersController([NotNull] ICustomersService customersService)
+    public CustomersController([NotNull] ICustomersService customersService, [NotNull] IMapper mapper)
     {
         _customersService = customersService ?? throw new ArgumentNullException(nameof(customersService));
+        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
     /// <summary>
@@ -24,9 +28,15 @@ public class CustomersController : Controller
     /// </summary>
     /// <returns>Customer data</returns>
     [HttpGet]
-    public Task<IActionResult> GetAllCustomers()
+    public async Task<IActionResult> GetAllCustomers()
     {
-        return Task.FromResult<IActionResult>(Ok(_customersService.GetAllAsync()));
+        var data = await _customersService.GetAllAsync();
+        
+        //var mapped = _mapper.Map<CustomerDto>(data);
+
+        //return Ok(mapped);
+
+        return Ok(data);
     }
 
     /// <summary>

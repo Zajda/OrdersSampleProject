@@ -29,7 +29,8 @@ public class ItemsService : IItemsService
 
         if (item == null) throw new ArgumentNullException($"Item with {id} does not exist!");
 
-        return (Task<Item>) _itemsRepo.DeleteAsync(item);
+        item.IsDeleted = true;
+        return UpdateAsync(item);
     }
 
     public Task<Item> UpdateAsync(Item entity)
